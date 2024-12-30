@@ -1,5 +1,6 @@
 package com.openclassrooms.p9.microservice_patient.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Integer id;
 
     @Column
@@ -41,7 +43,5 @@ public class Patient {
     @Column
     private String NumeroDeTelephone;
 
-    public String getPrenom() {
-        return this.prenom;
-    }
+
 }
