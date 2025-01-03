@@ -45,14 +45,15 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/").permitAll();
-                    auth.requestMatchers("/home.html").permitAll();
+                    auth.requestMatchers("/home").hasRole("ADMIN");
+                    auth.requestMatchers("/home").hasRole("USER");
                     auth.requestMatchers("/user/*").hasRole("ADMIN");
                     auth.requestMatchers("/403").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
-                        .defaultSuccessUrl("/loginsuccessful", true))
+                        .defaultSuccessUrl("/home", true))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                         .maximumSessions(1)
